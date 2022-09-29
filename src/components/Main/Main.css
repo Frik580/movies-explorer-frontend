@@ -1,0 +1,9 @@
+.main {
+    background-color: antiquewhite;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}

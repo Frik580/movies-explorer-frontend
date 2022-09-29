@@ -1,0 +1,8 @@
+.header {
+    background-color: aqua;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1280px;
+    width: 100%;
+    margin: 0 auto;
+}
