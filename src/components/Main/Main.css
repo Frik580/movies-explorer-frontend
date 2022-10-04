@@ -1,5 +1,5 @@
 .main {
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

@@ -1,0 +1,11 @@
+.mainheader__title {
+    font-size: 22px;
+    line-height: 1.2;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.mainheader__border {
+    min-height: 23px;
+    border-bottom: 1px solid #000;
+}

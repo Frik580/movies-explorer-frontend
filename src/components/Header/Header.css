@@ -1,8 +1,51 @@
 .header {
-    background-color: aqua;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     max-width: 1280px;
     width: 100%;
+    min-height: 74px;
     margin: 0 auto;
+    padding: 0 70px;
+}
+
+.header__logo {
+    background-image: url(../../images/logo.svg);
+    background-size: 38px 38px;
+    height: 38px;
+    width: 38px;
+}
+
+/* @media (max-width: 800px) {
+    .header__logo {
+        background-size: 104px 24.5px;
+        height: 24.5px;
+        width: 104px;
+    }
+} */
+
+.header__conteiner {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+    font-size: 12px;
+    line-height: 1.3;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.header__link {
+    cursor: pointer;
+    text-decoration: none;
+    margin-right: 30px;
+}
+
+.header__enter-button {
+    width: 76px;
+    height: 32px;
+    cursor: pointer;
+    background-color: #2BE080;
+    outline: none;
+    border: none;
+    border-radius: 3px;
 }
