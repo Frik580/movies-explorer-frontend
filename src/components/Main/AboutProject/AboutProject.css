@@ -5,14 +5,33 @@
   padding: 110px 70px;
 }
 
+@media (max-width: 1000px) {
+  .aboutproject {
+    min-height: 585px;
+    padding: 90px 50px;
+  }
+}
+
 .aboutproject__conteiner {
   display: flex;
   gap: 0 40px;
 }
 
+@media (max-width: 1000px) {
+  .aboutproject__conteiner {
+    gap: 0 30px;
+  }
+}
+
 .aboutproject__conteiner:last-of-type {
   gap: 0;
   margin-top: 110px;
+}
+
+@media (max-width: 1000px) {
+  .aboutproject__conteiner:last-of-type {
+    margin-top: 93px;
+  }
 }
 
 .aboutproject__text {
@@ -30,6 +49,14 @@
   font-size: 14px;
   line-height: 1.4;
   margin-top: 26px;
+}
+
+@media (max-width: 1000px) {
+  .aboutproject__paragraph:last-of-type {
+    font-size: 12px;
+  line-height: 1.5;
+  margin-top: 22px;
+  }
 }
 
 .aboutproject__column {

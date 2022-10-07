@@ -1,51 +1,70 @@
 import "./Header.css";
-// import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="header">
-      <p className="header__logo"></p>
-      <div className="header__conteiner">
-        {/* <Routes>
-          <Route
-            path="/"
-            element={ */}
-              <>
-                <p
-                  // onClick={#}
-                  className="header__link"
-                >
-                  Регистрация
-                </p>
-                <button
-                  // onClick={#}
-                  className="header__enter-button"
-                  type="button"
-                >
-                  Войти
-                </button>
-              </>
-            {/* }
-          />
-          <Route
-            path="sign-in"
-            element={
-              <Link to="/sign-up" className="link hover">
-                Регистрация
-              </Link>
-            }
-          />
-          <Route
-            path="sign-up"
-            element={
-              <Link to="/sign-in" className="link hover">
-                Войти
-              </Link>
-            }
-          />
-        </Routes> */}
-      </div>
-    </header>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <header className="header">
+            <p className="header__logo"></p>
+            <Link to="/signup" className="header__link-register">
+              Регистрация
+            </Link>
+            <Link to="/signin" className="header__enter-button">
+              Войти
+            </Link>
+          </header>
+        }
+      />
+      <Route
+        path="movies"
+        element={
+          <header className="header">
+            <p className="header__logo"></p>
+            <p className="header__text">Фильмы</p>
+            <Link to="/saved-movies" className="header__text link hover">
+              Сохранённые фильмы
+            </Link>
+            <Link to="/profile" className="header__profile-button link">
+              Аккаунт
+            </Link>
+          </header>
+        }
+      />
+      <Route
+        path="saved-movies"
+        element={
+          <header className="header">
+            <p className="header__logo"></p>
+            <Link to="/movies" className="header__text link hover">
+              Фильмы
+            </Link>
+            <p className="header__text">Сохранённые фильмы</p>
+            <Link to="/profile" className="header__profile-button link">
+              Аккаунт
+            </Link>
+          </header>
+        }
+      />
+      <Route
+        path="profile"
+        element={
+          <header className="header">
+            <p className="header__logo"></p>
+            <Link to="/movies" className="header__text link hover">
+              Фильмы
+            </Link>
+            <Link to="/saved-movies" className="header__text link hover">
+              Сохранённые фильмы
+            </Link>
+            <p className="header__profile-button">Аккаунт</p>
+          </header>
+        }
+      />
+      <Route path="*" element={<></>} />
+    </Routes>
   );
 }
 

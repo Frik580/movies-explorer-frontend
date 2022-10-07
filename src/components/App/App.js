@@ -5,6 +5,7 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
+import AuthForm from "../AuthForm/AuthForm";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
@@ -13,48 +14,45 @@ import { Routes, Route } from "react-router-dom";
 function App() {
   return (
     <div className="root">
+    <Header />
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <Header />
               <Main />
               <Footer />
             </>
           }
         />
         <Route
-          path="/movies"
+          path="movies"
           element={
             <>
-              <Header />
               <Movies />
               <Footer />
             </>
           }
         />
         <Route
-          path="/saved-movies"
+          path="saved-movies"
           element={
             <>
-              <Header />
               <SavedMovies />
               <Footer />
             </>
           }
         />
         <Route
-          path="/profile"
+          path="profile"
           element={
             <>
-              <Header />
               <Profile />
             </>
           }
         />
-        <Route path="/signin" element={<Login />} />
-        <Route path="/signup" element={<Register />} />
+        <Route path="signin" element={<AuthForm authForm="login" />} />
+        <Route path="signup" element={<AuthForm authForm="register" />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

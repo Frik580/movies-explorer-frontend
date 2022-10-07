@@ -5,7 +5,7 @@ import photo from "../../../images/photo.png";
 
 function AboutMe() {
   return (
-    <section className="aboutme">
+    <section className="aboutme" id={"aboutme"}>
       <MainHeader title={"Студент"} />
       <div className="aboutme__info">
         <div className="aboutme__description">

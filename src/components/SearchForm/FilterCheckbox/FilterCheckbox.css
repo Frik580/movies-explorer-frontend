@@ -1,0 +1,22 @@
+.checkbox {
+  display: flex;
+}
+
+.checkbox__text {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+  font-style: normal;
+  margin-left: 40px;
+}
+
+.checkbox__tumb {
+  background: none;
+  border: none;
+  outline: none;
+  background-image: url(../../../images/tumb.svg);
+  height: 20px;
+  width: 36px;
+  cursor: pointer;
+  margin-left: 14px;
+}

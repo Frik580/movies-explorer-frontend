@@ -1,29 +1,18 @@
 import "./NavTab.css";
+import { Link, Routes, Route } from "react-router-dom";
 
 function NavTab() {
   return (
     <section className="navtab">
-      <button
-        // onClick={#}
-        className="navtab__button"
-        type="button"
-      >
+      <a className="navtab__button" href="#aboutproject">
         О проекте
-      </button>
-      <button
-        // onClick={#}
-        className="navtab__button"
-        type="button"
-      >
+      </a>
+      <a className="navtab__button" href="#techs">
         Технологии
-      </button>
-      <button
-        // onClick={#}
-        className="navtab__button"
-        type="button"
-      >
+      </a>
+      <a className="navtab__button" href="#aboutme">
         Студент
-      </button>
+      </a>
     </section>
   );
 }

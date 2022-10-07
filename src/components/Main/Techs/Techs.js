@@ -3,7 +3,7 @@ import MainHeader from "../MainHeader/MainHeader";
 
 function Techs() {
   return (
-    <section className="techs">
+    <section className="techs" id={"techs"}>
       <MainHeader title={"Технологии"} />
       <p className="techs__title">7 технологий</p>
       <p className="techs__text">

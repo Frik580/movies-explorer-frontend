@@ -1,51 +1,86 @@
 .header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    max-width: 1280px;
-    width: 100%;
-    min-height: 74px;
-    margin: 0 auto;
-    padding: 0 70px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  min-height: 74px;
+  margin: 0 auto;
+  padding: 0 70px;
+  align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .header {
+    padding: 0 30px;
+  }
 }
 
 .header__logo {
-    background-image: url(../../images/logo.svg);
-    background-size: 38px 38px;
-    height: 38px;
-    width: 38px;
+  background-image: url(../../images/logo.svg);
+  height: 38px;
+  width: 38px;
+  margin-right: 28px;
 }
 
-/* @media (max-width: 800px) {
-    .header__logo {
-        background-size: 104px 24.5px;
-        height: 24.5px;
-        width: 104px;
-    }
-} */
-
-.header__conteiner {
-    display: flex;
-    margin-left: auto;
-    align-items: center;
-    font-size: 12px;
-    line-height: 1.3;
-    font-weight: 500;
-    font-style: normal;
-}
-
-.header__link {
-    cursor: pointer;
-    text-decoration: none;
-    margin-right: 30px;
+.header__link-register {
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 30px;
+  font-size: 12px;
+  line-height: 1.3;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: auto;
 }
 
 .header__enter-button {
-    width: 76px;
-    height: 32px;
-    cursor: pointer;
-    background-color: #2BE080;
-    outline: none;
-    border: none;
-    border-radius: 3px;
+  width: 76px;
+  height: 32px;
+  cursor: pointer;
+  background-color: #2be080;
+  border-radius: 3px;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  font-size: 12px;
+  line-height: 32px;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.header__text {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: 16px;
+}
+
+.link {
+  cursor: pointer;
+  text-decoration: none;
+  color: #000;
+  font-weight: 400;
+}
+
+.hover {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.hover:hover {
+  opacity: 0.7;
+}
+
+.header__profile-button {
+  background-image: url(../../images/profile.svg);
+  height: 32px;
+  width: 100px;
+  font-size: 14px;
+  line-height: 32px;
+  font-weight: 500;
+  font-style: normal;
+  margin-left: auto;
+  color: #000;
+  text-align: center;
 }
