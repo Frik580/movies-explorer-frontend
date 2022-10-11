@@ -100,8 +100,12 @@
   padding: 15px;
 }
 
+.authform__form-item_color_pink {
+  color: #FF4062;
+}
+
 .authform__form-button {
-  background: #ff6838;
+  background: #000;
   border: none;
   border-radius: 3px;
   outline: none;
@@ -125,7 +129,7 @@
   line-height: 1.2;
   font-weight: 400;
   font-style: normal;
-  color: #ee3465;
+  color: #FF4062;
   margin-top: 10px;
 }
 
@@ -151,7 +155,7 @@
   line-height: 1.2;
   font-weight: 400;
   font-style: normal;
-  color: #ff6838;
+  color: #000;
   cursor: pointer;
   text-decoration: none;
   margin-left: 6px;

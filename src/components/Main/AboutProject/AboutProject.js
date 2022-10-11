@@ -27,7 +27,7 @@ function AboutProject() {
       </div>
       <div className="aboutproject__conteiner">
         <div className="aboutproject__column">
-          <p className="aboutproject__column-graph aboutproject__column-graph_color_aquamarine">
+          <p className="aboutproject__column-graph aboutproject__column-graph_color_black">
             1 неделя
           </p>
           <p className="aboutproject__column-text">Back-end</p>

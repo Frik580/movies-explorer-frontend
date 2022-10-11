@@ -44,7 +44,7 @@ function AuthForm({ authForm }) {
           <input
             type="password"
             name="password"
-            className="authform__form-item"
+            className="authform__form-item authform__form-item_color_pink"
             placeholder="Пароль"
             required
           />

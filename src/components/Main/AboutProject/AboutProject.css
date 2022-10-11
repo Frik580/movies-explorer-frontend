@@ -122,8 +122,10 @@
   }
 }
 
-.aboutproject__column-graph_color_aquamarine {
-  background-color: #2be080;
+.aboutproject__column-graph_color_black {
+  background-color: #000;
+  color: #fff;
+
 }
 
 .aboutproject__column-graph_color_gray {
