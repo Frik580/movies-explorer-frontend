@@ -32,7 +32,7 @@ function Navigation({ isOpen, onClose }) {
                 <Link to="/saved-movies" className="popup__text popup__text_link hover">
                   Сохранённые фильмы
                 </Link>
-                <Link to="/profile" className="popup__profile-button popup__profile-button_link">
+                <Link to="/profile" className="popup__profile-button popup__profile-button_link hover-button">
                   Аккаунт
                 </Link>
               </>
@@ -53,7 +53,7 @@ function Navigation({ isOpen, onClose }) {
                   Фильмы
                 </Link>
                 <p className="popup__text">Сохранённые фильмы</p>
-                <Link to="/profile" className="popup__profile-button popup__profile-button_link">
+                <Link to="/profile" className="popup__profile-button popup__profile-button_link hover-button">
                   Аккаунт
                 </Link>
               </>

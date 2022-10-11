@@ -53,7 +53,7 @@ function AuthForm({ authForm }) {
           </span>
         </fieldset>
 
-        <button className={`authform__form-button`} type="submit" name="button">
+        <button className={`authform__form-button hover-button`} type="submit" name="button">
           {authForm === "register" && "Зарегистрироваться"}
           {authForm === "login" && "Войти"}
         </button>
