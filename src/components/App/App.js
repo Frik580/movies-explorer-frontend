@@ -1,10 +1,10 @@
+import { useState } from "react";
 import "./App.css";
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
-import Login from "../Login/Login";
-import Register from "../Register/Register";
+import Navigation from "../Navigation/Navigation";
 import AuthForm from "../AuthForm/AuthForm";
 import NotFoundPage from "../NotFoundPage/NotFoundPage";
 import Header from "../Header/Header";
@@ -12,9 +12,11 @@ import Footer from "../Footer/Footer";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
+  const [isNavigationPopupOpen, setIsNavigationPopupOpen] = useState(false);
+
   return (
     <div className="root">
-    <Header />
+      <Header onOpenNavigation={() => setIsNavigationPopupOpen(true)} />
       <Routes>
         <Route
           path="/"
@@ -55,6 +57,11 @@ function App() {
         <Route path="signup" element={<AuthForm authForm="register" />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
+
+      <Navigation
+        isOpen={isNavigationPopupOpen}
+        onClose={() => setIsNavigationPopupOpen(false)}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import "./Header.css";
 import { Link, Routes, Route } from "react-router-dom";
 
-function Header() {
+function Header({ onOpenNavigation }) {
   return (
     <Routes>
       <Route
@@ -23,13 +23,20 @@ function Header() {
         element={
           <header className="header">
             <p className="header__logo"></p>
-            <p className="header__text">Фильмы</p>
-            <Link to="/saved-movies" className="header__text link hover">
-              Сохранённые фильмы
-            </Link>
-            <Link to="/profile" className="header__profile-button link">
-              Аккаунт
-            </Link>
+            <div className="header__conteiner">
+              <p className="header__text">Фильмы</p>
+              <Link to="/saved-movies" className="header__text header__text_link hover">
+                Сохранённые фильмы
+              </Link>
+              <Link to="/profile" className="header__profile-button header__profile-button_link">
+                Аккаунт
+              </Link>
+            </div>
+            <button
+              onClick={onOpenNavigation}
+              className="header__burger-button"
+              type="button"
+            />
           </header>
         }
       />
@@ -38,13 +45,20 @@ function Header() {
         element={
           <header className="header">
             <p className="header__logo"></p>
-            <Link to="/movies" className="header__text link hover">
-              Фильмы
-            </Link>
-            <p className="header__text">Сохранённые фильмы</p>
-            <Link to="/profile" className="header__profile-button link">
-              Аккаунт
-            </Link>
+            <div className="header__conteiner">
+              <Link to="/movies" className="header__text header__text_link hover">
+                Фильмы
+              </Link>
+              <p className="header__text">Сохранённые фильмы</p>
+              <Link to="/profile" className="header__profile-button header__profile-button_link">
+                Аккаунт
+              </Link>
+            </div>
+            <button
+              onClick={onOpenNavigation}
+              className="header__burger-button"
+              type="button"
+            />
           </header>
         }
       />
@@ -53,13 +67,20 @@ function Header() {
         element={
           <header className="header">
             <p className="header__logo"></p>
-            <Link to="/movies" className="header__text link hover">
-              Фильмы
-            </Link>
-            <Link to="/saved-movies" className="header__text link hover">
-              Сохранённые фильмы
-            </Link>
-            <p className="header__profile-button">Аккаунт</p>
+            <div className="header__conteiner">
+              <Link to="/movies" className="header__text header__text_link hover">
+                Фильмы
+              </Link>
+              <Link to="/saved-movies" className="header__text header__text_link hover">
+                Сохранённые фильмы
+              </Link>
+              <p className="header__profile-button">Аккаунт</p>
+            </div>
+            <button
+              onClick={onOpenNavigation}
+              className="header__burger-button"
+              type="button"
+            />
           </header>
         }
       />

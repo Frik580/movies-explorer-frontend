@@ -12,12 +12,32 @@
   margin-top: 246px;
 }
 
+@media (max-width: 1000px) {
+  .notfoundpage__title {
+    margin-top: 408px;
+  }
+}
+
+@media (max-width: 600px) {
+  .notfoundpage__title {
+    margin-top: 329px;
+    font-size: 80px;
+  }
+}
+
 .notfoundpage__text {
   font-size: 16px;
   line-height: 1.2;
   font-weight: 400;
   font-style: normal;
   margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .notfoundpage__text {
+    margin-top: 10px;
+    font-size: 12px;
+  }
 }
 
 .notfoundpage__button {
@@ -31,4 +51,11 @@
   color: #ff6838;
   cursor: pointer;
   margin-top: 184px;
+}
+
+@media (max-width: 600px) {
+  .notfoundpage__button {
+    margin-top: 284px;
+    font-size: 12px;
+  }
 }

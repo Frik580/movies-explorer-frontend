@@ -15,9 +15,6 @@ function SearchForm() {
             placeholder="Фильм"
             required
           />
-          {/* <span id="user-name-error" className="error">
-    
-          </span> */}
           <button className={`searchform__form-button`} type="submit" name="button" />
         </fieldset>
         <FilterCheckbox />

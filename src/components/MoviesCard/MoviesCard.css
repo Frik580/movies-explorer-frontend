@@ -7,10 +7,33 @@
   box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
 }
 
+@media (max-width: 1000px) {
+  .element {
+    width: 339px;
+  }
+}
+
+@media (max-width: 600px) {
+  .element {
+    width: 300px;
+  }
+}
+
 .element__pic {
   height: 203px;
   object-fit: cover;
-  cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+  .element__pic {
+    height: 190px;
+  }
+}
+
+@media (max-width: 600px) {
+  .element__pic {
+    height: 168px;
+  }
 }
 
 .element__info {

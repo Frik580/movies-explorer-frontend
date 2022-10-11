@@ -1,11 +1,23 @@
 .mainheader__title {
-    font-size: 22px;
-    line-height: 1.2;
-    font-weight: 400;
-    font-style: normal;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  .mainheader__title {
+    font-size: 18px;
+  }
 }
 
 .mainheader__border {
-    min-height: 23px;
-    border-bottom: 1px solid #000;
+  min-height: 23px;
+  border-bottom: 1px solid #000;
+}
+
+@media (max-width: 600px) {
+  .mainheader__border {
+    min-height: 28px;
+  }
 }
