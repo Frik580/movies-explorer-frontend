@@ -1,0 +1,53 @@
+.checkbox {
+  display: flex;
+}
+
+@media (max-width: 1000px) {
+  .checkbox {
+    margin-top: 37px;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkbox {
+    margin-top: 45px;
+  }
+}
+
+.checkbox__text {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 400;
+  font-style: normal;
+  margin-left: 40px;
+}
+
+@media (max-width: 1000px) {
+  .checkbox__text {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .checkbox__text {
+    font-size: 11px;
+    line-height: 1.6;
+  }
+}
+
+.checkbox__tumb {
+  background: none;
+  border: none;
+  outline: none;
+  background-image: url(../../../images/tumb.svg);
+  height: 20px;
+  width: 36px;
+  cursor: pointer;
+  margin-left: 14px;
+}
+
+@media (max-width: 1000px) {
+  .checkbox__tumb {
+    margin-left: 12px;
+  }
+}

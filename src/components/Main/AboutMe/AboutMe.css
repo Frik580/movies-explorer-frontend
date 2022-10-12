@@ -1,0 +1,133 @@
+.aboutme {
+  display: flex;
+  flex-direction: column;
+  min-height: 1079px;
+  padding: 110px 70px 125px;
+}
+
+@media (max-width: 1000px) {
+  .aboutme {
+    min-height: 994px;
+    padding: 90px 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutme {
+    min-height: 1198px;
+    padding: 70px 14px;
+  }
+}
+
+.aboutme__info {
+  display: flex;
+  margin-top: 66px;
+}
+
+@media (max-width: 600px) {
+  .aboutme__info {
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 60px;
+  }
+}
+
+.aboutme__description {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin-right: 50px;
+  align-items: flex-start;
+}
+
+@media (max-width: 600px) {
+  .aboutme__description {
+    margin: 0;
+    margin-top: 40px;
+  }
+}
+
+.aboutme__photo {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-left: auto;
+}
+
+@media (max-width: 1000px) {
+  .aboutme__photo {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutme__photo {
+    width: 292px;
+    height: 352px;
+    margin: 0;
+  }
+}
+
+.aboutme__name {
+  font-size: 50px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 1000px) {
+  .aboutme__name {
+    font-size: 40px;
+    line-height: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutme__name {
+    font-size: 30px;
+    line-height: 1.2;
+  }
+}
+
+.aboutme__job {
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 500;
+  font-style: normal;
+  margin-top: 16px;
+}
+
+@media (max-width: 600px) {
+  .aboutme__job {
+    margin-top: 20px;
+    font-size: 11px;
+  }
+}
+
+.aboutme__text {
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 400;
+  font-style: normal;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 600px) {
+  .aboutme__text {
+    margin-bottom: 40px;
+    font-size: 11px;
+  }
+}
+
+.aboutme__link {
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-style: normal;
+  margin-top: auto;
+  color: #000;
+  text-decoration: none;
+}

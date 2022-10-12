@@ -1,0 +1,150 @@
+.aboutproject {
+  display: flex;
+  flex-direction: column;
+  min-height: 608px;
+  padding: 110px 70px;
+}
+
+@media (max-width: 1000px) {
+  .aboutproject {
+    min-height: 585px;
+    padding: 90px 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutproject {
+    min-height: 641px;
+    padding: 70px 18px;
+  }
+}
+
+.aboutproject__conteiner {
+  display: flex;
+  gap: 0 40px;
+}
+
+@media (max-width: 1000px) {
+  .aboutproject__conteiner {
+    gap: 0 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutproject__conteiner {
+    flex-direction: column;
+  }
+}
+
+.aboutproject__conteiner:last-of-type {
+  gap: 0;
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__conteiner:last-of-type {
+    flex-direction: row;
+  }
+}
+
+.aboutproject__text {
+  margin-top: 70px;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__text {
+    margin-top: 60px;
+  }
+}
+
+.aboutproject__paragraph {
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__paragraph {
+    font-size: 18px;
+  }
+}
+
+.aboutproject__paragraph:last-of-type {
+  font-size: 14px;
+  line-height: 1.4;
+  margin-top: 26px;
+}
+
+@media (max-width: 1000px) {
+  .aboutproject__paragraph:last-of-type {
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 22px;
+  }
+}
+
+@media (max-width: 600px) {
+  .aboutproject__paragraph:last-of-type {
+    font-size: 11px;
+    margin-top: 16px;
+  }
+}
+
+.aboutproject__column {
+  width: 20%;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__column {
+    min-width: 100px;
+  }
+}
+
+.aboutproject__column:last-of-type {
+  width: 80%;
+}
+
+.aboutproject__column-graph {
+  min-height: 36px;
+  line-height: 36px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__column-graph {
+    min-height: 35px;
+    font-size: 11px;
+    line-height: 35px;
+  }
+}
+
+.aboutproject__column-graph_color_black {
+  background-color: #000;
+  color: #fff;
+
+}
+
+.aboutproject__column-graph_color_gray {
+  background-color: #f2f2f2;
+}
+
+.aboutproject__column-text {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 500;
+  font-style: normal;
+  color: #a0a0a0;
+}
+
+@media (max-width: 600px) {
+  .aboutproject__column-text {
+    margin-top: 10px;
+    font-size: 11px;
+  }
+}
