@@ -22,7 +22,7 @@ function Header({ onOpenNavigation }) {
         path="movies"
         element={
           <header className="header">
-            <p className="header__logo"></p>
+            <Link to="/" className="header__logo hover-button" />
             <div className="header__conteiner">
               <p className="header__text">Фильмы</p>
               <Link
@@ -50,7 +50,7 @@ function Header({ onOpenNavigation }) {
         path="saved-movies"
         element={
           <header className="header">
-            <p className="header__logo"></p>
+            <Link to="/" className="header__logo hover-button" />
             <div className="header__conteiner">
               <Link
                 to="/movies"
@@ -78,7 +78,7 @@ function Header({ onOpenNavigation }) {
         path="profile"
         element={
           <header className="header">
-            <p className="header__logo"></p>
+            <Link to="/" className="header__logo hover-button" />
             <div className="header__conteiner">
               <Link
                 to="/movies"

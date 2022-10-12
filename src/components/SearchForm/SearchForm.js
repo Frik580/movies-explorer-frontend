@@ -4,7 +4,7 @@ import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 function SearchForm() {
   return (
     <section className="searchform">
-      <form className="searchform__form" noValidate>
+      <form className="searchform__form">
         <fieldset className="searchform__form-conteiner">
           <input
             type="text"
@@ -15,7 +15,7 @@ function SearchForm() {
             placeholder="Фильм"
             required
           />
-          <button className={`searchform__form-button`} type="submit" name="button" />
+          <button className={`searchform__form-button hover-button`} type="submit" name="button" />
         </fieldset>
         <FilterCheckbox />
       </form>

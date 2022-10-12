@@ -29,10 +29,16 @@ function Navigation({ isOpen, onClose }) {
                   Главная
                 </Link>
                 <p className="popup__text">Фильмы</p>
-                <Link to="/saved-movies" className="popup__text popup__text_link hover">
+                <Link
+                  to="/saved-movies"
+                  className="popup__text popup__text_link hover"
+                >
                   Сохранённые фильмы
                 </Link>
-                <Link to="/profile" className="popup__profile-button popup__profile-button_link hover-button">
+                <Link
+                  to="/profile"
+                  className="popup__profile-button popup__profile-button_link hover-button"
+                >
                   Аккаунт
                 </Link>
               </>
@@ -49,11 +55,17 @@ function Navigation({ isOpen, onClose }) {
                 >
                   Главная
                 </Link>
-                <Link to="/movies" className="popup__text popup__text_link hover">
+                <Link
+                  to="/movies"
+                  className="popup__text popup__text_link hover"
+                >
                   Фильмы
                 </Link>
                 <p className="popup__text">Сохранённые фильмы</p>
-                <Link to="/profile" className="popup__profile-button popup__profile-button_link hover-button">
+                <Link
+                  to="/profile"
+                  className="popup__profile-button popup__profile-button_link hover-button"
+                >
                   Аккаунт
                 </Link>
               </>
@@ -70,10 +82,16 @@ function Navigation({ isOpen, onClose }) {
                 >
                   Главная
                 </Link>
-                <Link to="/movies" className="popup__text popup__text_link hover">
+                <Link
+                  to="/movies"
+                  className="popup__text popup__text_link hover"
+                >
                   Фильмы
                 </Link>
-                <Link to="/saved-movies" className="popup__text popup__text_link hover">
+                <Link
+                  to="/saved-movies"
+                  className="popup__text popup__text_link hover"
+                >
                   Сохранённые фильмы
                 </Link>
                 <p className="popup__profile-button">Аккаунт</p>

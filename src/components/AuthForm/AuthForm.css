@@ -100,6 +100,12 @@
   padding: 15px;
 }
 
+.authform__form-item:focus {
+  outline: none;
+  outline: 1px solid #2f80d6;
+  border-radius: 8px;
+}
+
 .authform__form-item_color_pink {
   color: #FF4062;
 }

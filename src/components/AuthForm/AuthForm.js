@@ -5,7 +5,7 @@ import "./AuthForm.css";
 function AuthForm({ authForm }) {
   return (
     <div className="authform">
-      <p className="authform__logo"></p>
+      <Link to="/" className="authform__logo hover-button" />
       <form className="authform__form">
         <h3 className="authform__form-title">
           {authForm === "register" && "Добро пожаловать!"}
@@ -53,7 +53,11 @@ function AuthForm({ authForm }) {
           </span>
         </fieldset>
 
-        <button className={`authform__form-button hover-button`} type="submit" name="button">
+        <button
+          className={`authform__form-button hover-button`}
+          type="submit"
+          name="button"
+        >
           {authForm === "register" && "Зарегистрироваться"}
           {authForm === "login" && "Войти"}
         </button>
