@@ -107,7 +107,7 @@
 }
 
 .authform__form-item_color_pink {
-  color: #FF4062;
+  color: #ff4062;
 }
 
 .authform__form-button {
@@ -130,12 +130,20 @@
   }
 }
 
+.authform__form-button:enabled {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.authform__form-button:enabled:hover {
+  opacity: 0.8;
+}
+
 .authform__error {
   font-size: 10px;
   line-height: 1.2;
   font-weight: 400;
   font-style: normal;
-  color: #FF4062;
+  color: #ff4062;
   margin-top: 10px;
 }
 
@@ -171,4 +179,12 @@
   .authform__link {
     font-size: 12px;
   }
+}
+
+.authform__form-button_disabled {
+  border-radius: 3px;
+  color: #C2C2C2;
+  background-color: #F8F8F8;
+  /* opacity: 0.2; */
+  cursor: default;
 }

@@ -31,10 +31,10 @@
 }
 
 .searchform__form-conteiner {
+  position: relative;
   display: flex;
   padding: 0;
   align-items: center;
-  padding-right: 7px;
   width: 100%;
   border-radius: 50px;
   border: 1.5px solid rgba(170, 170, 170, 0.2);
@@ -42,7 +42,7 @@
 
 .searchform__form-item {
   border: none;
-  width: calc(100% - 34px - 7px);
+  width: 100%;
   background-color: transparent;
   font-family: inherit;
   font-size: 14px;
@@ -53,6 +53,7 @@
   white-space: nowrap;
   overflow: hidden;
   padding-left: 22px;
+  padding-right: 7px;
 }
 
 .searchform__form-item:focus {
@@ -86,7 +87,9 @@
   border-radius: 50%;
   background-color: #000;
   cursor: pointer;
-  margin-left: auto;
+  position: absolute;
+  right: 7px;
+  top: 7px;
 }
 
 .searchform__form-item::-webkit-input-placeholder {

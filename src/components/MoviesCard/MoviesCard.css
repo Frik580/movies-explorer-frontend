@@ -22,6 +22,7 @@
 .element__pic {
   height: 203px;
   object-fit: cover;
+  width: 100%;
 }
 
 @media (max-width: 1000px) {
@@ -109,4 +110,9 @@
   background-color: #f9f9f9;
   cursor: pointer;
   margin-left: auto;
+}
+
+.element__link {
+  display: flex;
+  margin-top: auto;
 }

@@ -39,7 +39,7 @@
   background: none;
   border: none;
   outline: none;
-  background-image: url(../../../images/tumb.svg);
+  background-image: url(../../../images/tumboff.svg);
   height: 20px;
   width: 36px;
   cursor: pointer;
@@ -48,6 +48,23 @@
 
 @media (max-width: 1000px) {
   .checkbox__tumb {
+    margin-left: 12px;
+  }
+}
+
+.checkbox__tumb_active {
+  background: none;
+  border: none;
+  outline: none;
+  background-image: url(../../../images/tumb.svg);
+  height: 20px;
+  width: 36px;
+  cursor: pointer;
+  margin-left: 14px;
+}
+
+@media (max-width: 1000px) {
+  .checkbox__tumb_active {
     margin-left: 12px;
   }
 }

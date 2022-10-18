@@ -2,15 +2,36 @@ import "./SavedMovies.css";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import Box from "../Box/Box";
+import NextMovies from "../NextMovies/NextMovies";
 
-function SavedMovies() {
+function SavedMovies({
+  isPreloader,
+  moviesList,
+  onMovieDelete,
+  onFindMovies,
+  isShortFilms,
+  onShortFilms,
+  isFindMovies,
+  messageError,
+  queryMoviesText,
+}) {
   return (
     <div className="savedmovies">
-      <SearchForm />
-      <Preloader />
-      <MoviesCardList saved={true} />
-      <Box />
+      <SearchForm
+        onFindMovies={onFindMovies}
+        isShortFilms={isShortFilms}
+        onShortFilms={onShortFilms}
+        queryMoviesText={queryMoviesText}
+      />
+      {isPreloader && <Preloader />}
+      <MoviesCardList
+        saved={true}
+        moviesList={moviesList}
+        isFindMovies={isFindMovies}
+        messageError={messageError}
+        onMovieDelete={onMovieDelete}
+      />
+      <NextMovies />
     </div>
   );
 }

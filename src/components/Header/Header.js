@@ -1,7 +1,7 @@
 import "./Header.css";
 import { Link, Routes, Route } from "react-router-dom";
 
-function Header({ onOpenNavigation }) {
+function Header({ loggedIn, onOpenNavigation }) {
   return (
     <Routes>
       <Route
@@ -12,9 +12,15 @@ function Header({ onOpenNavigation }) {
             <Link to="/signup" className="header__link-register hover">
               Регистрация
             </Link>
-            <Link to="/signin" className="header__enter-button hover-button">
-              Войти
-            </Link>
+            {loggedIn ? (
+              <Link to="/movies" className="header__enter-button hover-button">
+                Войти
+              </Link>
+            ) : (
+              <Link to="/signin" className="header__enter-button hover-button">
+                Войти
+              </Link>
+            )}
           </header>
         }
       />
