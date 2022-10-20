@@ -18,6 +18,33 @@ function Navigation({ isOpen, onClose }) {
         />
         <Routes>
           <Route
+            path="/"
+            element={
+              <>
+                <p className="popup__text">Главная</p>
+                <Link
+                  to="/movies"
+                  className="popup__text popup__text_link hover"
+                >
+                  Фильмы
+                </Link>
+                <Link
+                  to="/saved-movies"
+                  className="popup__text popup__text_link hover"
+                >
+                  Сохранённые фильмы
+                </Link>
+                <Link
+                  to="/profile"
+                  className="popup__profile-button popup__profile-button_link hover-button"
+                >
+                  Аккаунт
+                </Link>
+              </>
+            }
+          />
+
+          <Route
             path="movies"
             element={
               <>
@@ -44,6 +71,7 @@ function Navigation({ isOpen, onClose }) {
               </>
             }
           />
+
           <Route
             path="saved-movies"
             element={
@@ -71,6 +99,7 @@ function Navigation({ isOpen, onClose }) {
               </>
             }
           />
+
           <Route
             path="profile"
             element={

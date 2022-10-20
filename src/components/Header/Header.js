@@ -9,17 +9,46 @@ function Header({ loggedIn, onOpenNavigation }) {
         element={
           <header className="header">
             <p className="header__logo"></p>
-            <Link to="/signup" className="header__link-register hover">
-              Регистрация
-            </Link>
-            {loggedIn ? (
-              <Link to="/movies" className="header__enter-button hover-button">
-                Войти
-              </Link>
+            {!loggedIn ? (
+              <>
+                <Link to="/signup" className="header__link-register hover">
+                  Регистрация
+                </Link>
+                <Link
+                  to="/signin"
+                  className="header__enter-button hover-button"
+                >
+                  Войти
+                </Link>
+              </>
             ) : (
-              <Link to="/signin" className="header__enter-button hover-button">
-                Войти
-              </Link>
+              <>
+              <div className="header__conteiner">
+                <Link
+                  to="/movies"
+                  className="header__text header__text_link hover"
+                >
+                  Фильмы
+                </Link>
+                <Link
+                  to="/saved-movies"
+                  className="header__text header__text_link hover"
+                >
+                  Сохранённые фильмы
+                </Link>
+                <Link
+                  to="/profile"
+                  className="header__profile-button header__profile-button_link hover-button"
+                >
+                  Аккаунт
+                </Link>
+              </div>
+              <button
+              onClick={onOpenNavigation}
+              className="header__burger-button hover-button"
+              type="button"
+            />
+              </>
             )}
           </header>
         }

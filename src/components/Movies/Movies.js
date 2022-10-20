@@ -15,6 +15,11 @@ function Movies({
   queryMoviesText,
   onMovieLike,
   moviesSavedList,
+  onNextMovies,
+  count,
+  onCloseNext,
+  onOpenNext,
+  isButtonNext,
 }) {
   return (
     <div className="movies">
@@ -31,8 +36,11 @@ function Movies({
         messageError={messageError}
         onMovieLike={onMovieLike}
         moviesSavedList={moviesSavedList}
+        count={count}
+        onCloseNext={onCloseNext}
+        onOpenNext={onOpenNext}
       />
-      <NextMovies />
+      <NextMovies onNextMovies={onNextMovies} isButtonNext={isButtonNext} />
     </div>
   );
 }

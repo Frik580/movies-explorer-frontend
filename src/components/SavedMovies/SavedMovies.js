@@ -2,7 +2,7 @@ import "./SavedMovies.css";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
-import NextMovies from "../NextMovies/NextMovies";
+import Box from "../Box/Box";
 
 function SavedMovies({
   isPreloader,
@@ -14,6 +14,8 @@ function SavedMovies({
   isFindMovies,
   messageError,
   queryMoviesText,
+  onCloseNext,
+  onOpenNext,
 }) {
   return (
     <div className="savedmovies">
@@ -30,8 +32,10 @@ function SavedMovies({
         isFindMovies={isFindMovies}
         messageError={messageError}
         onMovieDelete={onMovieDelete}
+        onCloseNext={onCloseNext}
+        onOpenNext={onOpenNext}
       />
-      <NextMovies />
+      <Box />
     </div>
   );
 }

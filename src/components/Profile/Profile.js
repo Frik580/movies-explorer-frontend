@@ -1,44 +1,77 @@
 import "./Profile.css";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect, useContext, useRef } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function Profile({ onLogout }) {
+function Profile({ onLogout, onUpdateUser, messageError }) {
+  const currentUser = useContext(CurrentUserContext);
+  const inputRef = useRef();
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
+
+  useEffect(() => {
+    setValues({ name: currentUser.name, email: currentUser.email });
+    inputRef.current.focus();
+  }, [currentUser, messageError]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onUpdateUser(values);
+    resetForm();
+  };
+
   return (
     <div className="profile">
-      <form className="profile__form" noValidate>
-        <h3 className="profile__form-title">Привет, Виталий!</h3>
+      <form onSubmit={handleSubmit} className="profile__form" noValidate>
+        <h3 className="profile__form-title">{`Привет, ${currentUser.name}!`}</h3>
         <fieldset className="profile__form-conteiner">
           <label htmlFor="name" className="profile__form-label">
             Имя
           </label>
           <input
             type="text"
+            ref={inputRef}
+            value={values.name ?? ""}
+            onChange={handleChange}
             name="name"
             className="profile__form-item"
             minLength="2"
             maxLength="30"
-            placeholder="Виталий"
+            placeholder={currentUser.name}
             required
           />
-          <span id="user-name-error" className="error"></span>
         </fieldset>
+        <span id="about-error" className="profile__form-error">
+          {errors.name && <p>{errors.name ?? "Error!!!"}</p>}
+        </span>
         <fieldset className="profile__form-conteiner">
           <label htmlFor="email" className="profile__form-label">
             E-mail
           </label>
           <input
-            type="text"
+            type="email"
+            value={values.email ?? ""}
+            onChange={handleChange}
             name="email"
             className="profile__form-item"
             minLength="2"
             maxLength="30"
-            placeholder="pochta@yandex.ru"
+            placeholder={currentUser.email}
             required
           />
-          <span id="about-error" className="error"></span>
         </fieldset>
+        <span id="about-error" className="profile__form-error">
+          {errors.email && <p>{errors.email ?? "Error!!!"}</p>}
+        </span>
+        <span id="error" className="profile__form-error">
+          {messageError}
+        </span>
 
         <button
-          className={`hover profile__form-button`}
+          disabled={!isValid}
+          className={`profile__form-button ${
+            !isValid && "profile__form-button_disabled"
+          }`}
           type="submit"
           name="button"
         >
@@ -47,9 +80,6 @@ function Profile({ onLogout }) {
         <p onClick={onLogout} className="profile__link hover">
           Выйти из аккаунта
         </p>
-        {/* <Link to="/" className="profile__link hover">
-          Выйти из аккаунта
-        </Link> */}
       </form>
     </div>
   );

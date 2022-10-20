@@ -1,39 +1,37 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 
 function AuthForm({ messageError, onRegister, onLogin, authForm }) {
-  const [state, setState] = useState("");
   const inputRefRegister = useRef();
   const inputRefLogin = useRef();
-  const isValid = true;
+  const { values, handleChange, errors, isValid, setValues, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
-    setState({ name: "", email: "", password: "" });
+    setValues({ name: "", email: "", password: "" });
     authForm === "register" && inputRefRegister.current.focus();
     authForm === "login" && inputRefLogin.current.focus();
   }, [authForm]);
-
-  const handleInputChange = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     authForm === "register" &&
       onRegister({
-        name: state.name,
-        email: state.email,
-        password: state.password,
+        name: values.name,
+        email: values.email,
+        password: values.password,
       });
     authForm === "login" &&
-      onLogin({ email: state.email, password: state.password });
+      onLogin({ email: values.email, password: values.password });
+    resetForm();
   };
 
   return (
     <div className="authform">
       <Link to="/" className="authform__logo hover-button" />
-      <form onSubmit={handleSubmit} className="authform__form">
+      <form onSubmit={handleSubmit} className="authform__form" noValidate>
         <h3 className="authform__form-title">
           {authForm === "register" && "Добро пожаловать!"}
           {authForm === "login" && "Рады видеть!"}
@@ -46,15 +44,21 @@ function AuthForm({ messageError, onRegister, onLogin, authForm }) {
             <input
               type="text"
               ref={inputRefRegister}
-              value={state.name ?? ""}
-              onChange={handleInputChange}
+              value={values.name ?? ""}
+              onChange={handleChange}
               name="name"
               className="authform__form-item"
+              minLength="2"
+              maxLength="30"
               placeholder="Имя"
               required
             />
+            <span id="authform-error" className="authform__error">
+              {errors.name && <p>{errors.name ?? "Error!!!"}</p>}
+            </span>
           </fieldset>
         )}
+
         <fieldset className="authform__form-conteiner">
           <label htmlFor="email" className="authform__form-label">
             E-mail
@@ -62,27 +66,34 @@ function AuthForm({ messageError, onRegister, onLogin, authForm }) {
           <input
             type="email"
             ref={inputRefLogin}
-            value={state.email ?? ""}
-            onChange={handleInputChange}
+            value={values.email ?? ""}
+            onChange={handleChange}
             name="email"
             className="authform__form-item"
             placeholder="Email"
             required
           />
+          <span id="authform-error" className="authform__error">
+            {errors.email && <p>{errors.email ?? "Error!!!"}</p>}
+          </span>
         </fieldset>
+
         <fieldset className="authform__form-conteiner">
           <label htmlFor="password" className="authform__form-label">
             Пароль
           </label>
           <input
             type="password"
-            value={state.password ?? ""}
-            onChange={handleInputChange}
+            value={values.password ?? ""}
+            onChange={handleChange}
             name="password"
             className="authform__form-item authform__form-item_color_pink"
             placeholder="Пароль"
             required
           />
+          <span id="authform-error" className="authform__error">
+            {errors.password && <p>{errors.password ?? "Error!!!"}</p>}
+          </span>
           <span id="error" className="authform__error">
             {messageError}
           </span>

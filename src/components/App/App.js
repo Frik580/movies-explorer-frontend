@@ -20,6 +20,8 @@ import {
   createMovie,
   getAllMovies,
   deleteMovie,
+  getUserInfo,
+  setUserInfo,
 } from "../../utils/MainApi";
 
 function App() {
@@ -39,6 +41,8 @@ function App() {
   const [queryMoviesSavedList, setQueryMoviesSavedList] = useState([]);
   const [messageError, setMessageError] = useState("");
   const [currentUser, setCurrentUser] = useState("");
+  const [count, setCount] = useState(null);
+  const [isButtonNext, setIsButtonNext] = useState(true);
   const navigate = useNavigate();
 
   // API даннах
@@ -46,12 +50,23 @@ function App() {
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     jwt && handleAuth(jwt);
+  }, [loggedIn]);
+
+  useEffect(() => {
     if (loggedIn) {
       setIsPreloader(true);
-      getAllMovies(jwt)
-        .then((movies) => {
-          console.log(movies);
-          setMoviesSavedList(movies);
+      const promises = [getUserInfo(), getAllMovies()];
+      Promise.all(promises)
+        .then((results) => {
+          setCurrentUser(results[0]);
+          const movies = results[1].map(function (movie) {
+            if (movie.owner === results[0]._id) {
+              return movie;
+            }
+            return null;
+          });
+          const filterMovies = movies.filter((item) => item !== null);
+          setMoviesSavedList(filterMovies.reverse());
         })
         .catch((err) => {
           console.log(err);
@@ -63,7 +78,7 @@ function App() {
           setIsPreloader(false);
         });
     }
-  }, [loggedIn]);
+  }, [currentUser._id, loggedIn]);
 
   const onLogout = () => {
     localStorage.removeItem("jwt");
@@ -75,9 +90,8 @@ function App() {
     const content = await getContent(jwt)
       .then((res) => {
         if (res) {
-          setCurrentUser(res);
+          console.log(res);
           setLoggedIn(true);
-          console.log(currentUser);
         } else setLoggedIn(false);
       })
       .catch((err) => {
@@ -91,13 +105,9 @@ function App() {
     register(name, email, password)
       .then((res) => {
         onLogin({ email, password });
-        // setIsInfoTooltip(true);
-        // navigate("/sign-in");
         return res;
       })
       .catch((err) => {
-        // setIsInfoTooltip(true);
-        // setIsRegister(false);
         console.log(err);
         setMessageError("Такой пользователь уже существует");
       })
@@ -116,8 +126,6 @@ function App() {
         if (res.token) {
           console.log(res.token);
           localStorage.setItem("jwt", res.token);
-          // const jwt = localStorage.getItem("jwt");
-          // api.getJwt(jwt);
           setLoggedIn(true);
           navigate("/movies");
         }
@@ -133,6 +141,7 @@ function App() {
       });
   };
 
+  // Поиск фильмов
   useEffect(() => {
     handleShortFilms(queryMovies);
   }, [isShortFilms]);
@@ -163,6 +172,7 @@ function App() {
   }
 
   function handleShortFilms(movies) {
+    setCount(null);
     if (isShortFilms) {
       const shortMovies = movies.filter(function (movie) {
         return movie.duration < 40;
@@ -173,8 +183,7 @@ function App() {
     }
   }
 
-  //user
-
+  // Поиск фильмов user
   useEffect(() => {
     queryUserMovies.length === 0
       ? handleShortUserFilms(moviesSavedList)
@@ -204,6 +213,7 @@ function App() {
     }
   }
 
+  // Добавление фильмов в базу user
   function handleMovieLike({
     country,
     director,
@@ -230,7 +240,6 @@ function App() {
       nameEN,
     };
 
-    // const list = moviesSavedList.map((movie) => movie.movieId);
     const liked = moviesSavedList.some(
       (item) => item.movieId === data.movieId.toString()
     );
@@ -253,6 +262,7 @@ function App() {
     }
   }
 
+  // Удаление фильмов из базы user
   function handleMovieDelete(movie) {
     const id = movie._id;
     deleteMovie(movie)
@@ -268,6 +278,27 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+      });
+  }
+
+  function handleUpdateUser(data) {
+    setUserInfo(data)
+      .then((data) => {
+        console.log(data);
+        setCurrentUser(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err === "Ошибка: 409 Conflict") {
+          setMessageError("Этот email занят другим пользователем");
+        } else {
+          setMessageError("Что-то пошло не так");
+        }
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setMessageError("");
+        }, 4000);
       });
   }
 
@@ -304,6 +335,11 @@ function App() {
                     onMovieLike={handleMovieLike}
                     queryMoviesText={queryMoviesText}
                     moviesSavedList={moviesSavedList}
+                    onNextMovies={() => setCount(count + 1)}
+                    count={count}
+                    onCloseNext={() => setIsButtonNext(false)}
+                    onOpenNext={() => setIsButtonNext(true)}
+                    isButtonNext={isButtonNext}
                   />
                   <Footer />
                 </>
@@ -321,7 +357,6 @@ function App() {
                     moviesList={
                       isFindUserMovies ? queryMoviesSavedList : moviesSavedList
                     }
-                    // moviesList={queryMoviesSavedList}
                     isFindMovies={isFindUserMovies}
                     messageError={messageError}
                     isShortFilms={isShortUserFilms}
@@ -331,6 +366,8 @@ function App() {
                     }}
                     onMovieDelete={handleMovieDelete}
                     queryMoviesText={queryUserMoviesText}
+                    onCloseNext={() => setIsButtonNext(false)}
+                    onOpenNext={() => setIsButtonNext(true)}
                   />
                   <Footer />
                 </>
@@ -341,13 +378,23 @@ function App() {
             path="profile"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <Profile onLogout={onLogout} />
+                <Profile
+                  onLogout={onLogout}
+                  onUpdateUser={handleUpdateUser}
+                  messageError={messageError}
+                />
               </ProtectedRoute>
             }
           />
           <Route
             path="signin"
-            element={<AuthForm onLogin={onLogin} authForm="login" />}
+            element={
+              <AuthForm
+                onLogin={onLogin}
+                messageError={messageError}
+                authForm="login"
+              />
+            }
           />
           <Route
             path="signup"

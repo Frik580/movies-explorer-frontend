@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3001";
+export const BASE_URL = "https://api.movies.arseniy.nomoredomains.club";
 
 const handleResponse = (res) => {
   if (res.ok) {
@@ -70,5 +70,31 @@ export const deleteMovie = (data) => {
       authorization: `Bearer ${jwt}`,
       "Content-Type": "application/json",
     },
+  }).then(handleResponse);
+};
+
+export const getUserInfo = () => {
+  const jwt = localStorage.getItem("jwt");
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+  }).then(handleResponse);
+};
+
+
+export const setUserInfo = (data) => {
+  const jwt = localStorage.getItem("jwt");
+  return fetch(`${BASE_URL}/users/me`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`,
+    },
+    body: JSON.stringify(data),
   }).then(handleResponse);
 };
