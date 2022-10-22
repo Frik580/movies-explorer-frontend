@@ -33,7 +33,7 @@ function App() {
   const [isShortFilms, setIsShortFilms] = useState(false);
   const [isShortUserFilms, setIsShortUserFilms] = useState(false);
   const [isLocal, setIsLocal] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem("jwt"));
   const [movies, setMovies] = useState([]);
   const [moviesList, setMoviesList] = useState([]);
   const [moviesListLocal, setMoviesListLocal] = useState([]);
