@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 function Profile({ onLogout, onUpdateUser, messageError }) {
+  const [isValidValue, SetIsValidValue] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const inputRef = useRef();
   const { values, handleChange, errors, isValid, setValues, resetForm } =
@@ -13,6 +14,12 @@ function Profile({ onLogout, onUpdateUser, messageError }) {
     setValues({ name: currentUser.name, email: currentUser.email });
     inputRef.current.focus();
   }, [currentUser, messageError]);
+
+  useEffect(() => {
+    values.name === currentUser.name && values.email === currentUser.email
+      ? SetIsValidValue(false)
+      : SetIsValidValue(true);
+  }, [currentUser.email, currentUser.name, values.email, values.name]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,9 +75,9 @@ function Profile({ onLogout, onUpdateUser, messageError }) {
         </span>
 
         <button
-          disabled={!isValid}
+          disabled={!isValid || !isValidValue}
           className={`profile__form-button ${
-            !isValid && "profile__form-button_disabled"
+            (!isValid || !isValidValue) && "profile__form-button_disabled"
           }`}
           type="submit"
           name="button"

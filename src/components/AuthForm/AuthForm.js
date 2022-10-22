@@ -1,37 +1,53 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import React, { useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
+import { useForm } from "react-hook-form";
 
 function AuthForm({ messageError, onRegister, onLogin, authForm }) {
-  const inputRefRegister = useRef();
-  const inputRefLogin = useRef();
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const inputRef = useRef();
+
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    reset,
+  } = useForm({
+    mode: "all",
+  });
+
+  const { ref, ...rest } = register("email", {
+    required: "Поле обязательно к заполнению",
+    pattern: {
+      value:
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      message: "Введите адрес электронной почты",
+    },
+  });
 
   useEffect(() => {
-    setValues({ name: "", email: "", password: "" });
-    authForm === "register" && inputRefRegister.current.focus();
-    authForm === "login" && inputRefLogin.current.focus();
-  }, [authForm]);
+    reset();
+    inputRef.current.focus();
+  }, [authForm, reset]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const onHandle = (data) => {
     authForm === "register" &&
       onRegister({
-        name: values.name,
-        email: values.email,
-        password: values.password,
+        name: data.name,
+        email: data.email,
+        password: data.password,
       });
     authForm === "login" &&
-      onLogin({ email: values.email, password: values.password });
-    resetForm();
+      onLogin({ email: data.email, password: data.password });
   };
 
   return (
     <div className="authform">
       <Link to="/" className="authform__logo hover-button" />
-      <form onSubmit={handleSubmit} className="authform__form" noValidate>
+      <form
+        onSubmit={handleSubmit(onHandle)}
+        className="authform__form"
+        noValidate
+      >
         <h3 className="authform__form-title">
           {authForm === "register" && "Добро пожаловать!"}
           {authForm === "login" && "Рады видеть!"}
@@ -42,19 +58,28 @@ function AuthForm({ messageError, onRegister, onLogin, authForm }) {
               Имя
             </label>
             <input
+              {...register("name", {
+                required: "Поле обязательно к заполнению",
+                pattern: {
+                  value: /^[A-Za-zа-яА-я -]+$/,
+                  message:
+                    "поле может содержать только буквы, пробел или дефис",
+                },
+                minLength: {
+                  value: 2,
+                  message: "Минимум 2 символа",
+                },
+                maxLength: {
+                  value: 30,
+                  message: "Максимум 30 символов",
+                },
+              })}
               type="text"
-              ref={inputRefRegister}
-              value={values.name ?? ""}
-              onChange={handleChange}
-              name="name"
               className="authform__form-item"
-              minLength="2"
-              maxLength="30"
               placeholder="Имя"
-              required
             />
             <span id="authform-error" className="authform__error">
-              {errors.name && <p>{errors.name ?? "Error!!!"}</p>}
+              {errors?.name && <p>{errors?.name?.message ?? "Error!!!"}</p>}
             </span>
           </fieldset>
         )}
@@ -64,17 +89,17 @@ function AuthForm({ messageError, onRegister, onLogin, authForm }) {
             E-mail
           </label>
           <input
+            {...rest}
+            ref={(e) => {
+              ref(e);
+              inputRef.current = e;
+            }}
             type="email"
-            ref={inputRefLogin}
-            value={values.email ?? ""}
-            onChange={handleChange}
-            name="email"
             className="authform__form-item"
             placeholder="Email"
-            required
           />
           <span id="authform-error" className="authform__error">
-            {errors.email && <p>{errors.email ?? "Error!!!"}</p>}
+            {errors?.email && <p>{errors?.email?.message ?? "Error!!!"}</p>}
           </span>
         </fieldset>
 
@@ -83,16 +108,17 @@ function AuthForm({ messageError, onRegister, onLogin, authForm }) {
             Пароль
           </label>
           <input
+            {...register("password", {
+              required: "Поле обязательно к заполнению",
+            })}
             type="password"
-            value={values.password ?? ""}
-            onChange={handleChange}
-            name="password"
             className="authform__form-item authform__form-item_color_pink"
             placeholder="Пароль"
-            required
           />
           <span id="authform-error" className="authform__error">
-            {errors.password && <p>{errors.password ?? "Error!!!"}</p>}
+            {errors?.password && (
+              <p>{errors?.password?.message ?? "Error!!!"}</p>
+            )}
           </span>
           <span id="error" className="authform__error">
             {messageError}

@@ -1,6 +1,7 @@
 import "./MoviesCardList.css";
 import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import { WINDOW_SIZE, MOVIES_QUANTITY } from "../../utils/Constants";
 
 function MoviesCardList({
   saved,
@@ -30,13 +31,13 @@ function MoviesCardList({
   }, []);
 
   useEffect(() => {
-      if (width >= 1280) {
-        setQuantity(12 + count * 3);
-      } else if (width >= 768) {
-        setQuantity(8 + count * 2);
-      } else if (width < 768) {
-        setQuantity(5 + count * 2);
-      }
+    if (width >= WINDOW_SIZE.HIGH) {
+      setQuantity(MOVIES_QUANTITY.HIGH + count * 3);
+    } else if (width >= WINDOW_SIZE.MIDDLE) {
+      setQuantity(MOVIES_QUANTITY.MIDDLE + count * 2);
+    } else if (width < WINDOW_SIZE.MIDDLE) {
+      setQuantity(MOVIES_QUANTITY.SMALL + count * 2);
+    }
 
     const movies = moviesList.filter(function (item, index) {
       return index < quantity;

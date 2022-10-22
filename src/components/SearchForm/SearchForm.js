@@ -1,29 +1,39 @@
 import "./SearchForm.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import FilterCheckbox from "./FilterCheckbox/FilterCheckbox";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-function SearchForm({ onFindMovies, isShortFilms, onShortFilms, queryMoviesText }) {
+function SearchForm({
+  onFindMovies,
+  isShortFilms,
+  onShortFilms,
+  queryMoviesText,
+  isErrors,
+}) {
   const { values, handleChange, errors, isValid, setValues, resetForm } =
     useFormAndValidation();
 
-  const [placeholder, setPlaceholder] = useState("");
+  useEffect(() => {
+    queryMoviesText
+      ? setValues({ name: queryMoviesText })
+      : setValues({ name: "" });
+  }, [queryMoviesText]);
 
   useEffect(() => {
-    queryMoviesText ? setPlaceholder(queryMoviesText) : setPlaceholder("Фильм");
-  }, [queryMoviesText]);
+    errors.name ? isErrors(true) : isErrors(false)
+  }, [errors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     onFindMovies({
       name: values.name,
     });
-    resetForm();
+    // resetForm();
   };
 
   return (
     <section className="searchform">
-      <form className="searchform__form" onSubmit={handleSubmit}>
+      <form className="searchform__form" onSubmit={handleSubmit} noValidate>
         <fieldset className="searchform__form-conteiner">
           <input
             type="text"
@@ -33,11 +43,14 @@ function SearchForm({ onFindMovies, isShortFilms, onShortFilms, queryMoviesText 
             className="searchform__form-item"
             minLength="1"
             maxLength="30"
-            placeholder={placeholder}
+            placeholder="Фильм"
             required
           />
           <button
-            className={`searchform__form-button hover-button`}
+            disabled={!isValid}
+            className={`searchform__form-button ${
+            !isValid && "searchform__form-button_disabled"
+          }`}
             type="submit"
             name="button"
           />

@@ -92,6 +92,20 @@
   top: 7px;
 }
 
+.searchform__form-button:enabled {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.searchform__form-button:enabled:hover {
+  opacity: 0.8;
+}
+
+.searchform__form-button_disabled {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 0.1;
+  cursor: default;
+}
+
 .searchform__form-item::-webkit-input-placeholder {
   color: #a0a0a0;
 }

@@ -23,6 +23,7 @@ import {
   getUserInfo,
   setUserInfo,
 } from "../../utils/MainApi";
+import { SHORT_MOVIE_TIME } from "../../utils/Constants";
 
 function App() {
   const [isNavigationPopupOpen, setIsNavigationPopupOpen] = useState(false);
@@ -31,9 +32,13 @@ function App() {
   const [isFindUserMovies, setIsFindUserMovies] = useState(false);
   const [isShortFilms, setIsShortFilms] = useState(false);
   const [isShortUserFilms, setIsShortUserFilms] = useState(false);
+  const [isLocal, setIsLocal] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [movies, setMovies] = useState([]);
   const [moviesList, setMoviesList] = useState([]);
+  const [moviesListLocal, setMoviesListLocal] = useState([]);
   const [queryMovies, setQueryMovies] = useState([]);
+  const [queryMoviesLocal, setQueryMoviesLocal] = useState([]);
   const [queryUserMovies, setQueryUserMovies] = useState([]);
   const [queryMoviesText, setQueryMoviesText] = useState("");
   const [queryUserMoviesText, setQueryUserMoviesText] = useState("");
@@ -48,11 +53,26 @@ function App() {
   // API даннах
 
   useEffect(() => {
+    const checkbox = localStorage.getItem("checkbox");
+    const localQuery = JSON.parse(localStorage.getItem("query"));
+    const localQueryText = localStorage.getItem("queryText");
+
+    if (localQuery) {
+      checkbox === "true" ? setIsShortFilms(true) : setIsShortFilms(false);
+      setQueryMoviesLocal(localQuery);
+      handleShortFilmsLocal(localQuery);
+      setQueryMoviesText(localQueryText);
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     jwt && handleAuth(jwt);
   }, [loggedIn]);
 
   useEffect(() => {
+    console.log(loggedIn);
+
     if (loggedIn) {
       setIsPreloader(true);
       const promises = [getUserInfo(), getAllMovies()];
@@ -78,11 +98,22 @@ function App() {
           setIsPreloader(false);
         });
     }
-  }, [currentUser._id, loggedIn]);
+  }, [loggedIn]);
 
   const onLogout = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("checkbox");
+    localStorage.removeItem("query");
+    localStorage.removeItem("queryText");
+
+    setIsShortFilms(false);
+    setQueryMoviesText("");
+    setQueryUserMoviesText("");
+    setMessageError("");
+    setIsLocal(false);
     setLoggedIn(false);
+    setIsFindUserMovies(false);
+    setMoviesList([]);
   };
 
   // API фронтенд-аутентификации
@@ -90,7 +121,6 @@ function App() {
     const content = await getContent(jwt)
       .then((res) => {
         if (res) {
-          console.log(res);
           setLoggedIn(true);
         } else setLoggedIn(false);
       })
@@ -104,7 +134,10 @@ function App() {
     console.log({ name, email, password });
     register(name, email, password)
       .then((res) => {
-        onLogin({ email, password });
+        setMessageError("Регистрация прошла успешно!");
+        setTimeout(() => {
+          onLogin({ email, password });
+        }, 4000);
         return res;
       })
       .catch((err) => {
@@ -119,8 +152,6 @@ function App() {
   };
 
   const onLogin = ({ email, password }) => {
-    console.log({ email, password });
-
     authorize(email, password)
       .then((res) => {
         if (res.token) {
@@ -142,45 +173,75 @@ function App() {
   };
 
   // Поиск фильмов
+
   useEffect(() => {
-    handleShortFilms(queryMovies);
+    localStorage.setItem("checkbox", isShortFilms);
+
+    if (!isLocal) {
+      handleShortFilms(queryMovies);
+    } else {
+      handleShortFilmsLocal(queryMoviesLocal);
+    }
   }, [isShortFilms]);
 
   function handleFindMovies(data) {
-    setIsPreloader(true);
-    getMovies()
-      .then((movies) => {
-        const query = movies.filter(function (movie) {
-          return movie.nameRU.toLowerCase().includes(data.name.toLowerCase());
+    setIsLocal(false);
+    if (movies.length === 0) {
+      setIsPreloader(true);
+      getMovies()
+        .then((movies) => {
+          setMovies(movies);
+          query(movies, data);
+        })
+        .catch((err) => {
+          console.log(err);
+          setMessageError(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
+          );
+        })
+        .finally(() => {
+          setIsPreloader(false);
         });
-        setQueryMovies(query);
-        handleShortFilms(query);
-        setQueryMoviesText(
-          `Результат поиска по ключу: ${data.name.toLowerCase()}`
-        );
-        setIsFindMovies(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        setMessageError(
-          "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз."
-        );
-      })
-      .finally(() => {
-        setIsPreloader(false);
-      });
+    } else {
+      query(movies, data);
+    }
+  }
+
+  function query(movies, data) {
+    const query = movies.filter(function (movie) {
+      return movie.nameRU.toLowerCase().includes(data.name.toLowerCase());
+    });
+    setQueryMovies(query);
+    handleShortFilms(query);
+    localStorage.setItem("query", JSON.stringify(query));
+    setQueryMoviesText(data.name.toLowerCase());
+    localStorage.setItem("queryText", data.name.toLowerCase());
+    setIsFindMovies(true);
   }
 
   function handleShortFilms(movies) {
     setCount(null);
     if (isShortFilms) {
       const shortMovies = movies.filter(function (movie) {
-        return movie.duration < 40;
+        return movie.duration < SHORT_MOVIE_TIME;
       });
       setMoviesList(shortMovies);
     } else {
       setMoviesList(movies);
     }
+  }
+
+  function handleShortFilmsLocal(movies) {
+    setCount(null);
+    if (isShortFilms) {
+      const shortMovies = movies.filter(function (movie) {
+        return movie.duration < SHORT_MOVIE_TIME;
+      });
+      setMoviesListLocal(shortMovies);
+    } else {
+      setMoviesListLocal(movies);
+    }
+    setIsLocal(true);
   }
 
   // Поиск фильмов user
@@ -196,16 +257,14 @@ function App() {
     });
     setQueryUserMovies(query);
     handleShortUserFilms(query);
-    setQueryUserMoviesText(
-      `Результат поиска по ключу: ${data.name.toLowerCase()}`
-    );
+    setQueryUserMoviesText(data.name.toLowerCase());
     setIsFindUserMovies(true);
   }
 
   function handleShortUserFilms(movies) {
     if (isShortUserFilms) {
       const shortMovies = movies.filter(function (movie) {
-        return movie.duration < 40;
+        return movie.duration < SHORT_MOVIE_TIME;
       });
       setQueryMoviesSavedList(shortMovies);
     } else {
@@ -252,6 +311,11 @@ function App() {
         })
         .catch((err) => {
           console.log(err);
+          if (err === "Ошибка: 400 Bad Request") {
+            setMessageError("Фильм не может быть сохранён");
+          } else {
+            setMessageError("Что-то пошло не так");
+          }
         });
     } else {
       console.log("Фильм уже есть");
@@ -319,6 +383,7 @@ function App() {
               </>
             }
           />
+
           <Route
             path="movies"
             element={
@@ -327,7 +392,7 @@ function App() {
                   <Movies
                     isPreloader={isPreloader}
                     onFindMovies={handleFindMovies}
-                    moviesList={moviesList}
+                    moviesList={isLocal ? moviesListLocal : moviesList}
                     isFindMovies={isFindMovies}
                     messageError={messageError}
                     isShortFilms={isShortFilms}
@@ -340,6 +405,11 @@ function App() {
                     onCloseNext={() => setIsButtonNext(false)}
                     onOpenNext={() => setIsButtonNext(true)}
                     isButtonNext={isButtonNext}
+                    isErrors={(data) =>
+                      data
+                        ? setMessageError("Нужно ввести ключевое слово")
+                        : setMessageError("")
+                    }
                   />
                   <Footer />
                 </>
@@ -368,6 +438,11 @@ function App() {
                     queryMoviesText={queryUserMoviesText}
                     onCloseNext={() => setIsButtonNext(false)}
                     onOpenNext={() => setIsButtonNext(true)}
+                    isErrors={(data) =>
+                      data
+                        ? setMessageError("Нужно ввести ключевое слово")
+                        : setMessageError("")
+                    }
                   />
                   <Footer />
                 </>
@@ -386,26 +461,32 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="signin"
-            element={
-              <AuthForm
-                onLogin={onLogin}
-                messageError={messageError}
-                authForm="login"
+
+          {!loggedIn && (
+            <>
+              <Route
+                path="signin"
+                element={
+                  <AuthForm
+                    onLogin={onLogin}
+                    messageError={messageError}
+                    authForm="login"
+                  />
+                }
               />
-            }
-          />
-          <Route
-            path="signup"
-            element={
-              <AuthForm
-                onRegister={onRegister}
-                messageError={messageError}
-                authForm="register"
+              <Route
+                path="signup"
+                element={
+                  <AuthForm
+                    onRegister={onRegister}
+                    messageError={messageError}
+                    authForm="register"
+                  />
+                }
               />
-            }
-          />
+            </>
+          )}
+
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
 

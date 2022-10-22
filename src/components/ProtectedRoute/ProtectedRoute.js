@@ -6,6 +6,6 @@ function ProtectedRoute({ loggedIn, children }) {
     return <Navigate to="/" replace />;
   }
   return children;
-};
+}
 
-export default React.memo(ProtectedRoute);
+export default ProtectedRoute;

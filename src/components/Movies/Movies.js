@@ -20,6 +20,7 @@ function Movies({
   onCloseNext,
   onOpenNext,
   isButtonNext,
+  isErrors,
 }) {
   return (
     <div className="movies">
@@ -28,6 +29,7 @@ function Movies({
         isShortFilms={isShortFilms}
         onShortFilms={onShortFilms}
         queryMoviesText={queryMoviesText}
+        isErrors={isErrors}
       />
       {isPreloader && <Preloader />}
       <MoviesCardList

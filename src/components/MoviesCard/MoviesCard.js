@@ -27,7 +27,7 @@ function MoviesCard({
       <div className="element__info">
         <div className="element__text">
           <h2 className="element__title">{movie.nameRU}</h2>
-          <p className="element__time">{movie.duration}</p>
+          <p className="element__time">{`${movie.duration} мин`}</p>
         </div>
         {saved ? (
           <button
@@ -46,8 +46,6 @@ function MoviesCard({
       <a
         href={movie.trailerLink}
         className="element__link"
-        target="_blank"
-        rel="noreferrer"
       >
         <img
           src={url}

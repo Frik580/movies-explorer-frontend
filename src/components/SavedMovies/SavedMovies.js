@@ -16,6 +16,7 @@ function SavedMovies({
   queryMoviesText,
   onCloseNext,
   onOpenNext,
+  isErrors,
 }) {
   return (
     <div className="savedmovies">
@@ -24,6 +25,7 @@ function SavedMovies({
         isShortFilms={isShortFilms}
         onShortFilms={onShortFilms}
         queryMoviesText={queryMoviesText}
+        isErrors={isErrors}
       />
       {isPreloader && <Preloader />}
       <MoviesCardList
