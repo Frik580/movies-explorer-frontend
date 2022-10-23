@@ -1,74 +1,106 @@
 import "./Profile.css";
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
+import { useForm } from "react-hook-form";
 
 function Profile({ onLogout, onUpdateUser, messageError }) {
-  const [isValidValue, SetIsValidValue] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const inputRef = useRef();
-  const { values, handleChange, errors, isValid, setValues, resetForm } =
-    useFormAndValidation();
+  const [isValidValue, SetIsValidValue] = useState(true);
+
+  const {
+    register,
+    formState: { errors, isValid },
+    handleSubmit,
+    watch,
+  } = useForm({
+    mode: "all",
+    defaultValues: {
+      name: currentUser.name,
+      email: currentUser.email,
+    },
+  });
+
+  const name = watch("name");
+  const email = watch("email");
 
   useEffect(() => {
-    setValues({ name: currentUser.name, email: currentUser.email });
-    inputRef.current.focus();
-  }, [currentUser, messageError]);
-
-  useEffect(() => {
-    values.name === currentUser.name && values.email === currentUser.email
+    name === currentUser.name && email === currentUser.email
       ? SetIsValidValue(false)
       : SetIsValidValue(true);
-  }, [currentUser.email, currentUser.name, values.email, values.name]);
+  }, [name, email, currentUser.name, currentUser.email]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onUpdateUser(values);
-    resetForm();
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const { ref, ...rest } = register("name", {
+    required: "Поле обязательно к заполнению",
+    pattern: {
+      value: /^[A-Za-zа-яА-я -]+$/,
+      message: "поле может содержать только буквы, пробел или дефис",
+    },
+    minLength: {
+      value: 2,
+      message: "Минимум 2 символа",
+    },
+    maxLength: {
+      value: 30,
+      message: "Максимум 30 символов",
+    },
+  });
+
+  const onHandle = (data) => {
+    onUpdateUser({
+      name: data.name,
+      email: data.email,
+    });
   };
 
   return (
     <div className="profile">
-      <form onSubmit={handleSubmit} className="profile__form" noValidate>
+      <form
+        onSubmit={handleSubmit(onHandle)}
+        className="profile__form"
+        noValidate
+      >
         <h3 className="profile__form-title">{`Привет, ${currentUser.name}!`}</h3>
         <fieldset className="profile__form-conteiner">
           <label htmlFor="name" className="profile__form-label">
             Имя
           </label>
           <input
+            {...rest}
+            ref={(e) => {
+              ref(e);
+              inputRef.current = e;
+            }}
             type="text"
-            ref={inputRef}
-            value={values.name ?? ""}
-            onChange={handleChange}
-            name="name"
             className="profile__form-item"
-            minLength="2"
-            maxLength="30"
-            placeholder={currentUser.name}
-            required
           />
         </fieldset>
         <span id="about-error" className="profile__form-error">
-          {errors.name && <p>{errors.name ?? "Error!!!"}</p>}
+          {errors?.name && <p>{errors?.name?.message ?? "Error!!!"}</p>}
         </span>
         <fieldset className="profile__form-conteiner">
           <label htmlFor="email" className="profile__form-label">
             E-mail
           </label>
           <input
+            {...register("email", {
+              required: "Поле обязательно к заполнению",
+              pattern: {
+                value:
+                  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                message: "Введите корректный адрес электронной почты",
+              },
+            })}
             type="email"
-            value={values.email ?? ""}
-            onChange={handleChange}
-            name="email"
             className="profile__form-item"
-            minLength="2"
-            maxLength="30"
-            placeholder={currentUser.email}
-            required
           />
         </fieldset>
         <span id="about-error" className="profile__form-error">
-          {errors.email && <p>{errors.email ?? "Error!!!"}</p>}
+          {errors?.email && <p>{errors?.email?.message ?? "Error!!!"}</p>}
         </span>
         <span id="error" className="profile__form-error">
           {messageError}

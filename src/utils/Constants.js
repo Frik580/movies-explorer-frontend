@@ -9,4 +9,9 @@ export const MOVIES_QUANTITY = {
   SMALL: 5,
 };
 
+export const MOVIES_QUANTITY_NEXT = {
+  HIGH: 3,
+  MIDDLE: 2,
+};
+
 export const SHORT_MOVIE_TIME = 40;

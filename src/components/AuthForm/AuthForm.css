@@ -140,11 +140,13 @@
 
 .authform__error {
   font-size: 10px;
-  line-height: 1.2;
+  line-height: 20px;
   font-weight: 400;
   font-style: normal;
   color: #ff4062;
-  margin-top: 10px;
+  /* margin-top: 10px; */
+  /* padding-top: 10px; */
+
 }
 
 .authform__form-text {
