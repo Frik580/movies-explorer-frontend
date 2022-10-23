@@ -356,6 +356,9 @@ function App() {
     const id = movie._id;
     deleteMovie(movie)
       .then(() => {
+        console.log(moviesSavedList);
+        console.log(queryMoviesSavedList);
+        console.log(queryUserMovies);
         const newList = moviesSavedList.filter(function (movie) {
           return movie._id !== id;
         });
@@ -364,10 +367,12 @@ function App() {
           return movie._id !== id;
         });
         setQueryMoviesSavedList(newQueryList);
-        const newQuery = queryUserMovies.filter(function (movie) {
-          return movie._id !== id;
-        });
-        setQueryUserMovies(newQuery);
+        if (queryUserMovies) {
+          const newQuery = queryUserMovies.filter(function (movie) {
+            return movie._id !== id;
+          });
+          setQueryUserMovies(newQuery);
+        }
       })
       .catch((err) => {
         console.log(err);
