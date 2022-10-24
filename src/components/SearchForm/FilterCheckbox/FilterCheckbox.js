@@ -1,10 +1,14 @@
 import "./FilterCheckbox.css";
 
-function FilterCheckbox() {
+function FilterCheckbox({ isShortFilms, onShortFilms }) {
   return (
     <div className="checkbox">
       <p className="checkbox__text">Короткометражки</p>
-      <button className="checkbox__tumb" type="button"></button>
+      <button
+        onClick={onShortFilms}
+        className={isShortFilms ? "checkbox__tumb_active" : "checkbox__tumb"}
+        type="button"
+      />
     </div>
   );
 }

@@ -21,13 +21,21 @@
   display: flex;
   flex-direction: column;
   max-width: 410px;
+  min-height: 482px;
   margin: 0 auto;
   align-items: center;
+}
+
+@media (max-width: 1000px) {
+  .profile__form {
+    min-height: 445px;
+  }
 }
 
 @media (max-width: 600px) {
   .profile__form {
     max-width: 260px;
+    min-height: 596px;
   }
 }
 
@@ -123,7 +131,16 @@
   line-height: 1.2;
   font-weight: 400;
   font-style: normal;
-  margin-top: 206px;
+  /* margin-top: 206px; */
+  margin-top: auto;
+}
+
+.profile__form-button:enabled {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.profile__form-button:enabled:hover {
+  opacity: 0.7;
 }
 
 @media (max-width: 1000px) {
@@ -154,4 +171,17 @@
   .profile__link {
     font-size: 12px;
   }
+}
+
+.profile__form-button_disabled {
+  color: #C2C2C2;
+  cursor: default;
+}
+
+.profile__form-error {
+  font-size: 10px;
+  line-height: 20px;
+  font-weight: 400;
+  font-style: normal;
+  color: #ff4062;
 }

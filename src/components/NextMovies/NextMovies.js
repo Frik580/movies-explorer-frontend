@@ -1,11 +1,18 @@
 import "./NextMovies.css";
+import React from "react";
 
-function NextMovies() {
+function NextMovies({ onNextMovies, isButtonNext }) {
   return (
     <section className="nextmovies">
-      <button className={"nextmovies__button hover-button"} type="button">
-        Ещё
-      </button>
+      {isButtonNext && (
+        <button
+          onClick={onNextMovies}
+          className={"nextmovies__button hover-button"}
+          type="button"
+        >
+          Ещё
+        </button>
+      )}
     </section>
   );
 }

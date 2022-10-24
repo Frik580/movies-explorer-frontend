@@ -35,3 +35,14 @@
     gap: 16px 16px;
   }
 }
+
+.elements__message {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+@media (max-width: 600px) {
+  .elements__message {
+    margin-bottom: 40px;
+  }
+}
